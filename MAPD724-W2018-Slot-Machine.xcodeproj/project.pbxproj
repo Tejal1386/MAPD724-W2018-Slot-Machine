@@ -13,6 +13,7 @@
 		E431E9C7201FAD0F00A805B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E431E9C6201FAD0F00A805B1 /* Assets.xcassets */; };
 		E431E9CA201FAD0F00A805B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E431E9C8201FAD0F00A805B1 /* LaunchScreen.storyboard */; };
 		E431E9D5201FAD0F00A805B1 /* MAPD724_W2018_Slot_MachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431E9D4201FAD0F00A805B1 /* MAPD724_W2018_Slot_MachineTests.swift */; };
+		E431E9E0201FC96B00A805B1 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		E431E9D0201FAD0F00A805B1 /* MAPD724-W2018-Slot-MachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MAPD724-W2018-Slot-MachineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E431E9D4201FAD0F00A805B1 /* MAPD724_W2018_Slot_MachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAPD724_W2018_Slot_MachineTests.swift; sourceTree = "<group>"; };
 		E431E9D6201FAD0F00A805B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				E431E9C6201FAD0F00A805B1 /* Assets.xcassets */,
 				E431E9C8201FAD0F00A805B1 /* LaunchScreen.storyboard */,
 				E431E9CB201FAD0F00A805B1 /* Info.plist */,
+				E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */,
 			);
 			path = "MAPD724-W2018-Slot-Machine";
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			files = (
 				E431E9C2201FAD0F00A805B1 /* ViewController.swift in Sources */,
 				E431E9C0201FAD0F00A805B1 /* AppDelegate.swift in Sources */,
+				E431E9E0201FC96B00A805B1 /* MainScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
