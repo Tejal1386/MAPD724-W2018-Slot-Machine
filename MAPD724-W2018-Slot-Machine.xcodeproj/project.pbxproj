@@ -14,6 +14,7 @@
 		E431E9CA201FAD0F00A805B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E431E9C8201FAD0F00A805B1 /* LaunchScreen.storyboard */; };
 		E431E9D5201FAD0F00A805B1 /* MAPD724_W2018_Slot_MachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431E9D4201FAD0F00A805B1 /* MAPD724_W2018_Slot_MachineTests.swift */; };
 		E431E9E0201FC96B00A805B1 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */; };
+		E4EF607C2027A36C0024568F /* Win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E4EF607B2027A36C0024568F /* Win.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		E431E9D4201FAD0F00A805B1 /* MAPD724_W2018_Slot_MachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAPD724_W2018_Slot_MachineTests.swift; sourceTree = "<group>"; };
 		E431E9D6201FAD0F00A805B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		E4EF607B2027A36C0024568F /* Win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Win.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				E431E9C6201FAD0F00A805B1 /* Assets.xcassets */,
 				E431E9C8201FAD0F00A805B1 /* LaunchScreen.storyboard */,
 				E431E9CB201FAD0F00A805B1 /* Info.plist */,
+				E4EF607B2027A36C0024568F /* Win.mp3 */,
 				E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */,
 			);
 			path = "MAPD724-W2018-Slot-Machine";
@@ -185,6 +188,7 @@
 				E431E9CA201FAD0F00A805B1 /* LaunchScreen.storyboard in Resources */,
 				E431E9C7201FAD0F00A805B1 /* Assets.xcassets in Resources */,
 				E431E9C5201FAD0F00A805B1 /* Main.storyboard in Resources */,
+				E4EF607C2027A36C0024568F /* Win.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

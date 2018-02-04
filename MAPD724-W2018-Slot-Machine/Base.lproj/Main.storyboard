@@ -83,9 +83,12 @@
                                     <action selector="resetButtonPressed:" destination="LH0-3P-NIL" eventType="touchUpInside" id="Wsz-fe-pYQ"/>
                                 </connections>
                             </button>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ryV-C5-XS0">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ryV-C5-XS0">
                                 <rect key="frame" x="56" y="466" width="94" height="29"/>
                                 <color key="tintColor" red="1" green="0.9999879599" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="betStepper:" destination="LH0-3P-NIL" eventType="valueChanged" id="Ft3-Xk-M7h"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Bet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fV-zh-IRk">
                                 <rect key="frame" x="16" y="466" width="35" height="30"/>
@@ -138,18 +141,6 @@
                                     <outlet property="delegate" destination="LH0-3P-NIL" id="8cY-QU-Jf6"/>
                                 </connections>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jackpot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIQ-tW-4m4">
-                                <rect key="frame" x="127" y="146" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Mmb-eA-i0f"/>
-                                    <constraint firstAttribute="height" constant="30" id="PHT-cs-rpq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="1" green="0.9999879599" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0iI-Ff-82H">
                                 <rect key="frame" x="165" y="502" width="90" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -159,6 +150,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="1" green="0.9999879599" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spin More To Win Jackpot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIQ-tW-4m4">
+                                <rect key="frame" x="43" y="146" width="289" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.38734266490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PHT-cs-rpq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="1" green="0.9999879599" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.5" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -189,6 +191,7 @@
                             <constraint firstItem="0fV-zh-IRk" firstAttribute="firstBaseline" secondItem="hJm-5n-Aoq" secondAttribute="firstBaseline" id="Fxq-0K-WbQ"/>
                             <constraint firstItem="HfX-cB-g4L" firstAttribute="leading" secondItem="xPo-Oa-68d" secondAttribute="leading" constant="16" id="GYe-dY-cmL"/>
                             <constraint firstItem="ONz-Se-TGL" firstAttribute="top" secondItem="gIQ-tW-4m4" secondAttribute="bottom" constant="10" id="Ijf-bv-ayu"/>
+                            <constraint firstItem="gIQ-tW-4m4" firstAttribute="leading" secondItem="xPo-Oa-68d" secondAttribute="leading" constant="43" id="L7V-mc-Y6J"/>
                             <constraint firstItem="0iI-Ff-82H" firstAttribute="leading" secondItem="1tD-Lx-cQF" secondAttribute="trailing" constant="15" id="MIr-io-e7m"/>
                             <constraint firstItem="hJm-5n-Aoq" firstAttribute="height" secondItem="0iI-Ff-82H" secondAttribute="height" id="NdB-BM-eZK"/>
                             <constraint firstItem="iHY-Jv-Rqo" firstAttribute="leading" secondItem="0iI-Ff-82H" secondAttribute="trailing" constant="14" id="NzL-X3-2ld"/>
@@ -206,16 +209,15 @@
                             <constraint firstItem="0iI-Ff-82H" firstAttribute="leading" secondItem="1tD-Lx-cQF" secondAttribute="trailing" constant="15" id="any-Z8-3yE"/>
                             <constraint firstItem="GBv-ei-iUM" firstAttribute="leading" secondItem="xPo-Oa-68d" secondAttribute="leading" id="bFr-1t-dyU"/>
                             <constraint firstItem="uqb-cr-jmq" firstAttribute="baseline" secondItem="sqs-Yx-TJw" secondAttribute="baseline" id="bT8-33-t0A"/>
-                            <constraint firstItem="xPo-Oa-68d" firstAttribute="trailing" secondItem="gIQ-tW-4m4" secondAttribute="trailing" constant="128" id="bma-RD-A2X"/>
                             <constraint firstItem="ONz-Se-TGL" firstAttribute="leading" secondItem="xPo-Oa-68d" secondAttribute="leading" id="cAk-bF-QlK"/>
                             <constraint firstItem="0fV-zh-IRk" firstAttribute="leading" secondItem="1tD-Lx-cQF" secondAttribute="leading" id="cYL-ar-Shg"/>
                             <constraint firstItem="xPo-Oa-68d" firstAttribute="trailing" secondItem="iHY-Jv-Rqo" secondAttribute="trailing" constant="16" id="d5y-8t-Xdz"/>
                             <constraint firstItem="uqb-cr-jmq" firstAttribute="firstBaseline" secondItem="sqs-Yx-TJw" secondAttribute="firstBaseline" id="dZ5-Zr-AJo"/>
                             <constraint firstItem="0iI-Ff-82H" firstAttribute="baseline" secondItem="1tD-Lx-cQF" secondAttribute="baseline" id="dhJ-hR-iwc"/>
-                            <constraint firstItem="gIQ-tW-4m4" firstAttribute="leading" secondItem="xPo-Oa-68d" secondAttribute="leading" constant="127" id="duA-Ep-zT7"/>
                             <constraint firstItem="3R5-ha-mcz" firstAttribute="leading" secondItem="hJm-5n-Aoq" secondAttribute="trailing" constant="14" id="g0D-O6-teA"/>
                             <constraint firstItem="0fV-zh-IRk" firstAttribute="baseline" secondItem="hJm-5n-Aoq" secondAttribute="baseline" id="qoh-9z-QKj"/>
                             <constraint firstItem="ryV-C5-XS0" firstAttribute="leading" secondItem="0fV-zh-IRk" secondAttribute="trailing" constant="5" id="ryP-50-JpA"/>
+                            <constraint firstItem="xPo-Oa-68d" firstAttribute="trailing" secondItem="gIQ-tW-4m4" secondAttribute="trailing" constant="43" id="ska-gB-crb"/>
                             <constraint firstItem="sqs-Yx-TJw" firstAttribute="leading" secondItem="uqb-cr-jmq" secondAttribute="trailing" constant="68" id="tgF-0I-cwf"/>
                             <constraint firstItem="xPo-Oa-68d" firstAttribute="trailing" secondItem="HfX-cB-g4L" secondAttribute="trailing" constant="16" id="udz-OV-wGp"/>
                         </constraints>
@@ -223,11 +225,10 @@
                     </view>
                     <connections>
                         <outlet property="ReelPickerView" destination="HfX-cB-g4L" id="lzB-Qn-tqC"/>
+                        <outlet property="playerJackpot" destination="gIQ-tW-4m4" id="i6c-bB-2Lk"/>
                         <outlet property="playerMoney" destination="0iI-Ff-82H" id="AQL-Cj-6OK"/>
                         <outlet property="playerWins" destination="iHY-Jv-Rqo" id="SH3-Bb-GRZ"/>
                         <outlet property="player_bet" destination="1tD-Lx-cQF" id="qFy-gu-Fxc"/>
-                        <outlet property="quitButton" destination="wzm-et-5Cg" id="fc1-Yy-YUr"/>
-                        <outlet property="resetButton" destination="sqs-Yx-TJw" id="l1q-0X-5Qu"/>
                         <outlet property="spinButton" destination="uqb-cr-jmq" id="kNs-yG-TQB"/>
                         <outlet property="winNumberLabel" destination="iHY-Jv-Rqo" id="7Ma-Jn-T8W"/>
                     </connections>

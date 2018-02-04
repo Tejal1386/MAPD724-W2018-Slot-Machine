@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 
 class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
@@ -33,8 +33,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     var element5: Int = 0
     var element:[Int] = [0]
     
+    var audioPlayer: AVAudioPlayer!
     
-    @IBOutlet weak var playerLoose: UILabel!
+    @IBOutlet weak var playerJackpot: UILabel!
     @IBOutlet weak var playerWins: UILabel!
     @IBOutlet weak var player_bet: UILabel!
     @IBOutlet weak var ReelPickerView: UIPickerView!
@@ -47,6 +48,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         let lower : UInt32 = 20
         let upper : UInt32 = 150
         let randomNumber = arc4random_uniform(upper - lower) + lower
+        
         return Int(randomNumber)
     }
     
@@ -57,7 +59,15 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let url = Bundle.main.url(forResource: "Win", withExtension: "mp3")
+        do{
+            audioPlayer = try AVAudioPlayer(contentsOf: url!)
+            audioPlayer.prepareToPlay()
+        }
+        catch let error as NSError{
+            print(error.debugDescription)
+        }
+        
         
     }
     
@@ -76,18 +86,18 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     //Defining width and height of component in pickerview
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return 60.0
+        return 50.0
     }
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 60.0
+        return 50.0
     }
     
     
     // setting number of elements as an image in Reel
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let myView = UIView(frame: CGRect(x:0,y:0, width:60, height:60))
+        let myView = UIView(frame: CGRect(x:0,y:0, width:50, height:50))
         
-        let myImageView = UIImageView(frame: CGRect(x:0,y:0,width:60,height:60))
+        let myImageView = UIImageView(frame: CGRect(x:0,y:0,width:50,height:50))
         
         
         var Banana:Int=0
@@ -151,28 +161,354 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         
+        winnings = 0
+        player_Money = 1000
+        player_bet.text = "1"
     
+        
     }
     
     @IBAction func spinButtonPreesed(_ sender: UIButton) {
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 0, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 1, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 2, animated: true)
+        
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 3, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 4, animated: true)
         
         
+       
+        
+        
+        
+        /*   UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
+         
+         self.playButton.bounds.size.width += 20
+         }, completion:{ finished in
+         
+         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+         self.playButton.bounds.size.width -= 20
+         }, completion:nil)
+         })*/
+        
         playerBet = Int(player_bet.text!)!
         
-      if (playerBet <= player_Money) {
+        if (player_Money == 0)
+        {
+            /* if (confirm("You ran out of Money! \nDo you want to play again?")) {
+             resetAll();
+             showPlayerStats();
+             }*/
+        }
+        else if (playerBet > player_Money) {
+            //  alert("You don't have enough Money to place that bet.");
+        }
+        else if (playerBet < 0) {
+            // alert("All bets must be a positive $ amount.");
+        }
+        else if (playerBet <= player_Money) {
             
-            // play
+            determineWinnings();
+            turn += 1;
+            showPlayerStats();
         }
         else {
-            //  pay more money to continue spins
+            //  alert("Please enter a valid bet amount");
         }
         
     }
     
-   
+    func showPlayerStats()
+    {
+        WinRatio = winNumber / turn;
+        
+        
+        playerMoney.text = String(player_Money)
+     //   playerTurn.text = String(turn)
+        playerWins.text = String(winnings)
+      //  playerLoose.text = String(lossNumber)
+        
+        
+        /*$("#jackpot").text("Jackpot: " + jackpot);
+         $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");*/
+    }
+    
+    
+    func determineWinnings()
+    {
+        element1 = ReelPickerView.selectedRow(inComponent: 0)
+        element2 = ReelPickerView.selectedRow(inComponent: 1)
+        element3 = ReelPickerView.selectedRow(inComponent: 2)
+        element4 = ReelPickerView.selectedRow(inComponent: 3)
+        element5 = ReelPickerView.selectedRow(inComponent: 4)
+        
+        
+        if(element1>6){
+            element1 = element1%7
+        }
+        if(element2>6){
+            element2 = element2%7
+        }
+        if(element3>6){
+            element3 = element3%7
+        }
+        if(element4>6){
+            element4 = element4%7
+        }
+        if(element5>6){
+            element5 = element5%7
+        }
+        
+        element = [ element1, element2, element3, element4, element5]
+        
+        print("element1 - " + String(element1))
+        print("element2 - " + String(element2))
+        print("element3 - " + String(element3))
+        print("element4 - " + String(element4))
+        print("element5 - " + String(element5))
+        
+    
+        
+        winnings = 0
+        
+        if (element1 == element2 && element2 == element3 && element3 == element4 && element4 == element5){
+            if element1 == 0
+            {
+                print("banana")
+                winnings = playerBet * 10
+            }
+            else if element1 == 1 {
+                print("grapes")
+                winnings = playerBet * 20
+            }
+            else if element1 == 2 {
+                print("strawbery")
+                winnings = playerBet * 30
+            }
+            else if element1 == 3 {
+                print("peach")
+                winnings = playerBet * 40
+            }
+            else if element1 == 4 {
+                print("bell")
+                winnings = playerBet * 50
+            }
+            else if element1 == 5 {
+                print("seven")
+                winnings = playerBet * 75
+            }
+            else if element1 == 6 {
+                print("apple")
+                winnings = playerBet * 5
+            }
+            showWinMessage()
+            winNumber += 1
+            
+        }else  if (element1 == element2 && element2 == element3 && element3 == element4 ){
+            if element1 == 0
+            {
+                print("banana")
+                winnings = playerBet * 3
+            }
+            else if element1 == 1 {
+                print("grapes")
+                winnings = playerBet * 5
+            }
+            else if element1 == 2 {
+                print("strawbery")
+                winnings = playerBet * 7
+            }
+            else if element1 == 3 {
+                print("peach")
+                winnings = playerBet * 9
+            }
+            else if element1 == 4 {
+                print("bell")
+                winnings = playerBet * 10
+            }
+            else if element1 == 5 {
+                print("seven")
+                winnings = playerBet * 15
+            }
+            else if element1 == 6 {
+                print("apple")
+                winnings = playerBet * 2
+            }
+            showWinMessage()
+            winNumber += 1
+            
+        }else if (element2 == element3 && element3 == element4 && element4 == element5){
+            if element2 == 0
+            {
+                print("banana")
+                winnings = playerBet * 3
+            }
+            else if element2 == 1 {
+                print("grapes")
+                winnings = playerBet * 5
+            }
+            else if element2 == 2 {
+                print("strawbery")
+                winnings = playerBet * 7
+            }
+            else if element2 == 3 {
+                print("peach")
+                winnings = playerBet * 9
+            }
+            else if element2 == 4 {
+                print("bell")
+                winnings = playerBet * 10
+            }
+            else if element2 == 5 {
+                print("seven")
+                winnings = playerBet * 15
+            }
+            else if element2 == 6 {
+                print("apple")
+                winnings = playerBet * 2
+            }
+            showWinMessage()
+            winNumber += 1
+            
+        }
+        else if (element1 == element2 && element1 == element3){
+            if element1 == 0
+            {
+                print("banana")
+                winnings = playerBet * 3
+            }
+            else if element1 == 1 {
+                print("grapes")
+                winnings = playerBet * 5
+            }
+            else if element1 == 2 {
+                print("strawbery")
+                winnings = playerBet * 7
+            }
+            else if element1 == 3 {
+                print("peach")
+                winnings = playerBet * 9
+            }
+            else if element1 == 4 {
+                print("bell")
+                winnings = playerBet * 10
+            }
+            else if element1 == 5 {
+                print("seven")
+                winnings = playerBet * 15
+            }
+            else if element1 == 6 {
+                print("apple")
+                winnings = playerBet * 2
+            }
+            showWinMessage()
+            winNumber += 1
+        }
+        else if (element2 == element3 && element2 == element4){
+            if element2 == 0
+            {
+                print("banana")
+                winnings = playerBet * 3
+            }
+            else if element2 == 1 {
+                print("grapes")
+                winnings = playerBet * 5
+            }
+            else if element2 == 2 {
+                print("strawbery")
+                winnings = playerBet * 7
+            }
+            else if element2 == 3 {
+                print("peach")
+                winnings = playerBet * 9
+            }
+            else if element2 == 4 {
+                print("bell")
+                winnings = playerBet * 10
+            }
+            else if element2 == 5 {
+                print("seven")
+                winnings = playerBet * 15
+            }
+            else if element2 == 6 {
+                print("apple")
+                winnings = playerBet * 2
+            }
+            showWinMessage()
+            winNumber += 1
+        }
+           
+        else if (element3 == element4 && element3 == element5 ){
+            if element3 == 0
+            {
+                print("banana")
+                winnings = playerBet * 3
+            }
+            else if element3 == 1 {
+                print("grapes")
+                winnings = playerBet * 5
+            }
+            else if element3 == 2 {
+                print("strawbery")
+                winnings = playerBet * 7
+            }
+            else if element3 == 3 {
+                print("peach")
+                winnings = playerBet * 9
+            }
+            else if element3 == 4 {
+                print("bell")
+                winnings = playerBet * 10
+            }
+            else if element3 == 5 {
+                print("seven")
+                winnings = playerBet * 15
+            }
+            else if element3 == 6 {
+                print("apple")
+                winnings = playerBet * 2
+            }
+            showWinMessage()
+            winNumber += 1
+        }
+        else
+        {
+            showLossMessage()
+            lossNumber += 1
+        }
+        
+    }
+    
+    
+    func showWinMessage() {
+        audioPlayer.play()
+        
+        player_Money += winnings;
+        
+        checkJackPot()
+    }
+    func showLossMessage() {
+        player_Money -= playerBet;
+    }
+    
+    func checkJackPot() {
+    /* compare two random values */
+        var jackPotTry:Int = reandomNumber()
+        var jackPotWin:Int = reandomNumber()
+    if (jackPotTry == jackPotWin) {
+    
+    player_Money += jackpot;
+    audioPlayer.play()
+    playerJackpot.text = String(jackpot)
+    jackpot = 1000;
+    }
+    }
+    
+    @IBAction func betStepper(_ sender: UIStepper) {
+        
+        let bet = Int(sender.value)
+        player_bet.text = String(bet)
+    }
+    
+
 }
