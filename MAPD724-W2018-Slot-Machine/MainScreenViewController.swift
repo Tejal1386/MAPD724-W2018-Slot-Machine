@@ -35,6 +35,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     var audioPlayer: AVAudioPlayer!
     
+    
+   @IBOutlet var popupMessage: UIView!
+    
+    @IBOutlet weak var popupMessageLabel: UILabel!
     @IBOutlet weak var playerJackpot: UILabel!
     @IBOutlet weak var playerWins: UILabel!
     @IBOutlet weak var player_bet: UILabel!
@@ -59,6 +63,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         let url = Bundle.main.url(forResource: "Win", withExtension: "mp3")
         do{
             audioPlayer = try AVAudioPlayer(contentsOf: url!)
@@ -67,8 +72,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         catch let error as NSError{
             print(error.debugDescription)
         }
-        
-        
+       
+        popupMessage.layer.cornerRadius = 5
     }
     
     
@@ -160,77 +165,54 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     
     @IBAction func resetButtonPressed(_ sender: UIButton) {
-        
+        print("reset")
         winnings = 0
+        winNumberLabel.text = "0"
         player_Money = 1000
+        playerMoney.text = "1000"
         player_bet.text = "1"
     
-        
+     
     }
     
     @IBAction func spinButtonPreesed(_ sender: UIButton) {
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 0, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 1, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 2, animated: true)
-        
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 3, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 4, animated: true)
         
-        
-       
-        
-        
-        
-        /*   UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
-         
-         self.playButton.bounds.size.width += 20
-         }, completion:{ finished in
-         
-         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-         self.playButton.bounds.size.width -= 20
-         }, completion:nil)
-         })*/
-        
+          
         playerBet = Int(player_bet.text!)!
         
         if (player_Money == 0)
         {
-            /* if (confirm("You ran out of Money! \nDo you want to play again?")) {
-             resetAll();
-             showPlayerStats();
-             }*/
+            animation()
+            
+            spinButton.isUserInteractionEnabled = false
+            
         }
         else if (playerBet > player_Money) {
-            //  alert("You don't have enough Money to place that bet.");
+            popupMessageLabel.text = "You don't have enough Money to place that bet."
+           animation()
+           
         }
-        else if (playerBet < 0) {
-            // alert("All bets must be a positive $ amount.");
-        }
+        
         else if (playerBet <= player_Money) {
             
             determineWinnings();
             turn += 1;
             showPlayerStats();
         }
-        else {
-            //  alert("Please enter a valid bet amount");
-        }
+      
         
     }
     
     func showPlayerStats()
     {
         WinRatio = winNumber / turn;
-        
-        
         playerMoney.text = String(player_Money)
-     //   playerTurn.text = String(turn)
         playerWins.text = String(winnings)
-      //  playerLoose.text = String(lossNumber)
-        
-        
-        /*$("#jackpot").text("Jackpot: " + jackpot);
-         $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");*/
     }
     
     
@@ -261,13 +243,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         
         element = [ element1, element2, element3, element4, element5]
         
-        print("element1 - " + String(element1))
-        print("element2 - " + String(element2))
-        print("element3 - " + String(element3))
-        print("element4 - " + String(element4))
-        print("element5 - " + String(element5))
-        
-    
         
         winnings = 0
         
@@ -308,31 +283,31 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             if element1 == 0
             {
                 print("banana")
-                winnings = playerBet * 3
+                winnings = playerBet * 5
             }
             else if element1 == 1 {
                 print("grapes")
-                winnings = playerBet * 5
+                winnings = playerBet * 10
             }
             else if element1 == 2 {
                 print("strawbery")
-                winnings = playerBet * 7
+                winnings = playerBet * 15
             }
             else if element1 == 3 {
                 print("peach")
-                winnings = playerBet * 9
+                winnings = playerBet * 20
             }
             else if element1 == 4 {
                 print("bell")
-                winnings = playerBet * 10
+                winnings = playerBet * 25
             }
             else if element1 == 5 {
                 print("seven")
-                winnings = playerBet * 15
+                winnings = playerBet * 35
             }
             else if element1 == 6 {
                 print("apple")
-                winnings = playerBet * 2
+                winnings = playerBet * 3
             }
             showWinMessage()
             winNumber += 1
@@ -341,31 +316,31 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             if element2 == 0
             {
                 print("banana")
-                winnings = playerBet * 3
+                winnings = playerBet * 5
             }
             else if element2 == 1 {
                 print("grapes")
-                winnings = playerBet * 5
+                winnings = playerBet * 10
             }
             else if element2 == 2 {
                 print("strawbery")
-                winnings = playerBet * 7
+                winnings = playerBet * 15
             }
             else if element2 == 3 {
                 print("peach")
-                winnings = playerBet * 9
+                winnings = playerBet * 20
             }
             else if element2 == 4 {
                 print("bell")
-                winnings = playerBet * 10
+                winnings = playerBet * 25
             }
             else if element2 == 5 {
                 print("seven")
-                winnings = playerBet * 15
+                winnings = playerBet * 35
             }
             else if element2 == 6 {
                 print("apple")
-                winnings = playerBet * 2
+                winnings = playerBet * 3
             }
             showWinMessage()
             winNumber += 1
@@ -387,11 +362,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             }
             else if element1 == 3 {
                 print("peach")
-                winnings = playerBet * 9
+                winnings = playerBet * 10
             }
             else if element1 == 4 {
                 print("bell")
-                winnings = playerBet * 10
+                winnings = playerBet * 12
             }
             else if element1 == 5 {
                 print("seven")
@@ -493,8 +468,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     func checkJackPot() {
     /* compare two random values */
-        var jackPotTry:Int = reandomNumber()
-        var jackPotWin:Int = reandomNumber()
+        let jackPotTry:Int = reandomNumber()
+        let jackPotWin:Int = reandomNumber()
     if (jackPotTry == jackPotWin) {
     
     player_Money += jackpot;
@@ -510,5 +485,20 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         player_bet.text = String(bet)
     }
     
-
+    
+    func animation(){
+        self.view.addSubview(popupMessage)
+        popupMessage.center = self.view.center
+        popupMessage.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        popupMessage.alpha = 0
+        
+        UIView.animate(withDuration: 0.4){
+       //     self.VisualEffectView.effect = self.effect
+            self.popupMessage.alpha = 1
+            self.popupMessage.transform = CGAffineTransform.identity
+        }
+    }
+    
+    @IBOutlet weak var popupButtonPressed: UIButton!
+    
 }
