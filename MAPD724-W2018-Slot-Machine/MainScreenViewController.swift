@@ -13,9 +13,9 @@ import AVFoundation
 class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource {
   
   
-    // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
-    //                                                               Variables And Outlets
-    // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
+    // --------------------------------------------------------------------------------------------
+    //                                    Variables And Outlets
+    // --------------------------------------------------------------------------------------------
     
     var player_Money: Int = 1000
     var winnings:Int = 0
@@ -38,13 +38,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
    @IBOutlet var popupMessage: UIView!
     
+    @IBOutlet var winPointsView: UIView!
     @IBOutlet weak var popupMessageLabel: UILabel!
     @IBOutlet weak var playerJackpot: UILabel!
     @IBOutlet weak var playerWins: UILabel!
     @IBOutlet weak var player_bet: UILabel!
     @IBOutlet weak var ReelPickerView: UIPickerView!
     @IBOutlet weak var spinButton: UIButton!
-    @IBOutlet weak var winNumberLabel: UILabel!
+    @IBOutlet weak var winRatio: UILabel!
     @IBOutlet weak var playerMoney: UILabel!
     
     //Function generate  random number
@@ -56,9 +57,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         return Int(randomNumber)
     }
     
-   // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
-   //                                                               ViewDidLoad
-   // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
+   // --------------------------------------------------------------------------------------------
+   //                                          ViewDidLoad
+   // --------------------------------------------------------------------------------------------
     
     
     override func viewDidLoad() {
@@ -77,14 +78,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     }
     
     
-    // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
-    //                                                               PickerView Settings (Reel)
-    // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
-    
-    
+    // --------------------------------------------------------------------------------------------
+    //                                     PickerView Settings (Reel)
+    // --------------------------------------------------------------------------------------------
+    // number of collumns in a pickerview(reel)
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 5
     }
+    // number of rows in a pickerview(reel)
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 200
     }
@@ -98,7 +99,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     }
     
     
-    // setting number of elements as an image in Reel
+    // setting number of elements (images) in a Reel
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let myView = UIView(frame: CGRect(x:0,y:0, width:50, height:50))
         
@@ -159,15 +160,15 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         return myView
     }
     
-    // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
-    //                                                               Action Function
-    // ---------------------------------------------- ---------------------------------------------- ----------------------------------------------
+    // --------------------------------------------------------------------------------------------
+    //                                          Action Function
+    // --------------------------------------------------------------------------------------------
     
-    
+    //Reset button pressed function to reset slot machine
     @IBAction func resetButtonPressed(_ sender: UIButton) {
-        print("reset")
+       
         winnings = 0
-        winNumberLabel.text = "0"
+        playerWins.text = "0"
         player_Money = 1000
         playerMoney.text = "1000"
         player_bet.text = "1"
@@ -175,6 +176,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
      
     }
     
+    //spin button pressed function to spin a reel in slot machine
     @IBAction func spinButtonPreesed(_ sender: UIButton) {
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 0, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 1, animated: true)
@@ -185,7 +187,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
           
         playerBet = Int(player_bet.text!)!
         
-        if (player_Money == 0)
+        if (player_Money == 0) // if no money then show animation message to continue game or quit
         {
             animation()
             
@@ -200,29 +202,35 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         
         else if (playerBet <= player_Money) {
             
-            determineWinnings();
+            determineWinnings(); // winnig criteria set for each spin
             turn += 1;
-            showPlayerStats();
+            showSpinResult(); //display result for each spin on screen
         }
       
         
     }
     
-    func showPlayerStats()
+    
+    //display result for each spin on screen
+    func showSpinResult()
     {
         WinRatio = winNumber / turn;
         playerMoney.text = String(player_Money)
-        playerWins.text = String(winnings)
+        playerWins.text = String(winnings) + " Points"
+        winRatio.text = String(WinRatio)
     }
     
     
+    //setting winnig criteria set for each spin
     func determineWinnings()
     {
+        // get element id in each collumn set on reel
         element1 = ReelPickerView.selectedRow(inComponent: 0)
         element2 = ReelPickerView.selectedRow(inComponent: 1)
         element3 = ReelPickerView.selectedRow(inComponent: 2)
         element4 = ReelPickerView.selectedRow(inComponent: 3)
         element5 = ReelPickerView.selectedRow(inComponent: 4)
+        
         
         
         if(element1>6){
@@ -243,9 +251,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         
         element = [ element1, element2, element3, element4, element5]
         
-        
         winnings = 0
         
+        //if all five elements match on reel
         if (element1 == element2 && element2 == element3 && element3 == element4 && element4 == element5){
             if element1 == 0
             {
@@ -279,7 +287,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             showWinMessage()
             winNumber += 1
             
-        }else  if (element1 == element2 && element2 == element3 && element3 == element4 ){
+        }else  if (element1 == element2 && element2 == element3 && element3 == element4 ){  //if four elements match on reel
             if element1 == 0
             {
                 print("banana")
@@ -312,7 +320,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             showWinMessage()
             winNumber += 1
             
-        }else if (element2 == element3 && element3 == element4 && element4 == element5){
+        }else if (element2 == element3 && element3 == element4 && element4 == element5){  //if four elements match on reel
             if element2 == 0
             {
                 print("banana")
@@ -346,7 +354,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             winNumber += 1
             
         }
-        else if (element1 == element2 && element1 == element3){
+        else if (element1 == element2 && element1 == element3){  //if three elements match on reel
             if element1 == 0
             {
                 print("banana")
@@ -379,7 +387,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             showWinMessage()
             winNumber += 1
         }
-        else if (element2 == element3 && element2 == element4){
+        else if (element2 == element3 && element2 == element4){ //if three elements match on reel
             if element2 == 0
             {
                 print("banana")
@@ -413,7 +421,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
             winNumber += 1
         }
            
-        else if (element3 == element4 && element3 == element5 ){
+        else if (element3 == element4 && element3 == element5 ){ //if three elements match on reel
             if element3 == 0
             {
                 print("banana")
@@ -448,44 +456,69 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         }
         else
         {
-            showLossMessage()
+            loosePoints()
             lossNumber += 1
         }
         
     }
     
     
+    // Show win message on screen
     func showWinMessage() {
         audioPlayer.play()
         
         player_Money += winnings;
         
+        
+        animateWinPoint()
         checkJackPot()
     }
-    func showLossMessage() {
+    
+    // Loose points if no match on reel
+    func loosePoints() {
         player_Money -= playerBet;
     }
     
+    // Animation view to display winnig message on screen
+    func animateWinPoint()
+    {
+        self.view.addSubview(winPointsView)
+        winPointsView.center = self.view.center
+        winPointsView.transform = CGAffineTransform.init(scaleX: 1.5, y: 1.5)
+        winPointsView.alpha = 0
+        
+        UIView.animate(withDuration: 3, animations: {
+            self.winPointsView.alpha = 1
+            
+        }) { (success:Bool) in
+            self.winPointsView.alpha = 0
+            self.popupMessage.removeFromSuperview()
+        }
+    }
+    
+    // Check for jeckpot
     func checkJackPot() {
     /* compare two random values */
         let jackPotTry:Int = reandomNumber()
         let jackPotWin:Int = reandomNumber()
-    if (jackPotTry == jackPotWin) {
+        if (jackPotTry == jackPotWin) {
     
-    player_Money += jackpot;
-    audioPlayer.play()
-    playerJackpot.text = String(jackpot)
-    jackpot = 1000;
-    }
+            player_Money += jackpot;
+            audioPlayer.play()
+            playerJackpot.text = String(jackpot)
+            jackpot = 1000;
+        }
     }
     
+    
+    // Increase or decrease bet for user
     @IBAction func betStepper(_ sender: UIStepper) {
         
         let bet = Int(sender.value)
         player_bet.text = String(bet)
     }
     
-    
+    // Animation message when player money is finish
     func animation(){
         self.view.addSubview(popupMessage)
         popupMessage.center = self.view.center
@@ -493,12 +526,27 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         popupMessage.alpha = 0
         
         UIView.animate(withDuration: 0.4){
-       //     self.VisualEffectView.effect = self.effect
             self.popupMessage.alpha = 1
             self.popupMessage.transform = CGAffineTransform.identity
         }
     }
     
-    @IBOutlet weak var popupButtonPressed: UIButton!
+    //If player wants to continue game after finish money Reset game
+    @IBAction func popUpViewButton(_ sender: UIButton) {
+      
+        winnings = 0
+        playerWins.text = "0"
+        player_Money = 1000
+        playerMoney.text = "1000"
+        player_bet.text = "1"
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.popupMessage.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.popupMessage.alpha = 0
+            
+        }) { (success:Bool) in
+            self.popupMessage.removeFromSuperview()
+        }
+    }
     
 }
