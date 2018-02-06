@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E41723F320295CF300D04F21 /* Spin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E41723F220295CF300D04F21 /* Spin.mp3 */; };
 		E431E9C0201FAD0F00A805B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431E9BF201FAD0F00A805B1 /* AppDelegate.swift */; };
 		E431E9C2201FAD0F00A805B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431E9C1201FAD0F00A805B1 /* ViewController.swift */; };
 		E431E9C5201FAD0F00A805B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E431E9C3201FAD0F00A805B1 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E41723F220295CF300D04F21 /* Spin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Spin.mp3; sourceTree = "<group>"; };
 		E431E9BC201FAD0F00A805B1 /* MAPD724-W2018-Slot-Machine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MAPD724-W2018-Slot-Machine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E431E9BF201FAD0F00A805B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E431E9C1201FAD0F00A805B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				E431E9C8201FAD0F00A805B1 /* LaunchScreen.storyboard */,
 				E431E9CB201FAD0F00A805B1 /* Info.plist */,
 				E4EF607B2027A36C0024568F /* Win.mp3 */,
+				E41723F220295CF300D04F21 /* Spin.mp3 */,
 				E431E9DF201FC96B00A805B1 /* MainScreenViewController.swift */,
 			);
 			path = "MAPD724-W2018-Slot-Machine";
@@ -187,6 +190,7 @@
 			files = (
 				E431E9CA201FAD0F00A805B1 /* LaunchScreen.storyboard in Resources */,
 				E431E9C7201FAD0F00A805B1 /* Assets.xcassets in Resources */,
+				E41723F320295CF300D04F21 /* Spin.mp3 in Resources */,
 				E431E9C5201FAD0F00A805B1 /* Main.storyboard in Resources */,
 				E4EF607C2027A36C0024568F /* Win.mp3 in Resources */,
 			);

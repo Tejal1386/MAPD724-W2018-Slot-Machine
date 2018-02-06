@@ -33,8 +33,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     var element5: Int = 0
     var element:[Int] = [0]
     
-    var audioPlayer: AVAudioPlayer!
-    
+    var winSound: AVAudioPlayer!
+    var reelSound: AVAudioPlayer!
     
    @IBOutlet var popupMessage: UIView!
     
@@ -42,10 +42,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     @IBOutlet weak var popupMessageLabel: UILabel!
     @IBOutlet weak var playerJackpot: UILabel!
     @IBOutlet weak var playerWins: UILabel!
+    @IBOutlet weak var winPointPopUp: UILabel!
+    
+    @IBOutlet weak var betController: UIStepper!
     @IBOutlet weak var player_bet: UILabel!
     @IBOutlet weak var ReelPickerView: UIPickerView!
     @IBOutlet weak var spinButton: UIButton!
-    @IBOutlet weak var winRatio: UILabel!
     @IBOutlet weak var playerMoney: UILabel!
     
     //Function generate  random number
@@ -64,16 +66,25 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       //win Sound settings
         let url = Bundle.main.url(forResource: "Win", withExtension: "mp3")
         do{
-            audioPlayer = try AVAudioPlayer(contentsOf: url!)
-            audioPlayer.prepareToPlay()
+            winSound = try AVAudioPlayer(contentsOf: url!)
+            winSound.prepareToPlay()
         }
         catch let error as NSError{
             print(error.debugDescription)
         }
        
+        //reel Sound settings
+        let url1 = Bundle.main.url(forResource: "Spin", withExtension: "mp3")
+        do{
+            reelSound = try AVAudioPlayer(contentsOf: url1!)
+            reelSound.prepareToPlay()
+        }
+        catch let error as NSError{
+            print(error.debugDescription)
+        }
         popupMessage.layer.cornerRadius = 5
     }
     
@@ -172,8 +183,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         player_Money = 1000
         playerMoney.text = "1000"
         player_bet.text = "1"
-    
-     
+        betController.value = 1
+        winNumber = 0
     }
     
     //spin button pressed function to spin a reel in slot machine
@@ -184,6 +195,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 3, animated: true)
         ReelPickerView.selectRow((reandomNumber()) , inComponent: 4, animated: true)
         
+        reelSound.play()
           
         playerBet = Int(player_bet.text!)!
         
@@ -214,10 +226,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     //display result for each spin on screen
     func showSpinResult()
     {
-        WinRatio = winNumber / turn;
         playerMoney.text = String(player_Money)
         playerWins.text = String(winnings) + " Points"
-        winRatio.text = String(WinRatio)
     }
     
     
@@ -465,11 +475,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     
     // Show win message on screen
     func showWinMessage() {
-        audioPlayer.play()
-        
+        winSound.play()
         player_Money += winnings;
-        
-        
         animateWinPoint()
         checkJackPot()
     }
@@ -486,7 +493,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         winPointsView.center = self.view.center
         winPointsView.transform = CGAffineTransform.init(scaleX: 1.5, y: 1.5)
         winPointsView.alpha = 0
-        
+        winPointPopUp.text = String(winnings) + " Points"
         UIView.animate(withDuration: 3, animations: {
             self.winPointsView.alpha = 1
             
@@ -504,7 +511,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
         if (jackPotTry == jackPotWin) {
     
             player_Money += jackpot;
-            audioPlayer.play()
+            winSound.play()
             playerJackpot.text = String(jackpot)
             jackpot = 1000;
         }
@@ -535,10 +542,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate,UIPickerV
     @IBAction func popUpViewButton(_ sender: UIButton) {
       
         winnings = 0
+        winNumber = 0
         playerWins.text = "0"
         player_Money = 1000
         playerMoney.text = "1000"
         player_bet.text = "1"
+        betController.value = 1
         
         UIView.animate(withDuration: 0.3, animations: {
             self.popupMessage.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)

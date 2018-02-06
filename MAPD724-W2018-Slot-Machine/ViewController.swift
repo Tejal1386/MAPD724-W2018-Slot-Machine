@@ -1,11 +1,10 @@
-//
-//  ViewController.swift
-//  MAPD724-W2018-Slot-Machine
-//
-//  Created by Tejal Patel on 2018-01-29.
-//  Copyright © 2018 Centennial College. All rights reserved.
-//
-
+/*
+ Date: 5/2/2018
+ FileName: ViewController.swift
+ Auther's Name: Tejal Patel , Amandeep Sekhon, ManKiran
+ Student ID: 300972812, 300976886, 300990016
+ 
+ */
 import UIKit
 
 class ViewController: UIViewController {
